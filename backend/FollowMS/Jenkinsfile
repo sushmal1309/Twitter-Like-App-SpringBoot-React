@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+    	stage('SonarQube Analysis') {
+            steps {
+                bat 'mvn verify sonar:sonar'
+            }
+        }
+        stage('Build') {
+            steps {
+	
+                script {
+                    def props = readProperties file: 'src/main/resources/application.properties'
+                    def portNumber = props.get('server.port')
+                    def jobName = env.JOB_NAME
+                    def pom = readMavenPom file: 'pom.xml'
+                    def finalName = pom.build.finalName
+
+                    bat "\"%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Kill_Process.bat\" ${portNumber}"
+                    bat 'mvn clean install'
+                    bat "\"%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Deploy_Maven.bat\" ${jobName} ${finalName}"
+                }
+            }
+        }
+        stage('Wait for Frontend Deployment') {
+          steps {
+            script {
+                  def frontendJob = build job: 'twitter'
+                 frontendJob.join()
+                }
+            }
+        }
+    }
+}

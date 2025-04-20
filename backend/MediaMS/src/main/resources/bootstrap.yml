@@ -1,0 +1,19 @@
+server:
+  port: 8082
+  
+spring:
+  application:
+    name: MediaMS
+  cloud:
+    consul:
+      discovery:
+        hostname: localhost
+      host: localhost
+      config:
+        enabled: true
+        fail-fast: false
+        prefix: config
+        default-context: application
+        data-key: data
+        profile-separator: '::'
+        format: yaml

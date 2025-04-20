@@ -1,0 +1,11 @@
+create database follow_db;
+
+use follow_db;
+
+create table follows(
+	id bigint primary key auto_increment,
+	user_id bigint,
+	follower_id bigint,
+	followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	unique (user_id,follower_id)
+);

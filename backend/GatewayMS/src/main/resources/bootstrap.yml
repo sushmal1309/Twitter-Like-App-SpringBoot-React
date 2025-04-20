@@ -1,0 +1,39 @@
+server:
+  port: 8086
+  
+spring:
+  application:
+    name: GatewayMS
+  cloud:
+    consul:
+      host: localhost 
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true 
+#      routes:
+#      - id: UserMS
+#        uri: lb://UserMS 
+#        predicates:
+#        - Path=/user/**
+#        
+#      - id: SearchMS
+#        uri: lb://SearchMS
+#        predicates:
+#        - Path=/search/**
+#        - Query=query
+#        
+#      - id: MediaMS
+#        uri: lb://MediaMS
+#        predicates:
+#        - Path=/media/**, /media/delete/**
+#        
+#      - id: FollowMS
+#        uri: lb://FollowMS 
+#        predicates:
+#        - Path=/follows/**, /follows/followers/**, /follows/followings/**    
+#              
+#      - id: TweetMS
+#        uri: lb://TweetMS
+#        predicates:
+#        - Path=/tweets/update/**,/tweets/delete/**,/tweet/like/**,/tweet/dislike/**,/tweets/**

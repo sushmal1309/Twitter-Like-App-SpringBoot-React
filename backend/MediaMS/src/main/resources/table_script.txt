@@ -1,0 +1,11 @@
+create database media_db;
+use media_db;
+
+create table media(
+	media_id bigint primary key auto_increment,
+	user_id bigint,
+	tweet_id bigint,
+	media_url varchar(500),
+	media_type varchar(50),
+	created_at datetime
+);

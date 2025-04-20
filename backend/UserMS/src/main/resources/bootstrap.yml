@@ -1,0 +1,17 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: UserMS
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+      config:
+        enabled: true
+        prefix: config
+        default-context: application
+        data-key: data
+        format: yaml
+        profile-separator: '::'
