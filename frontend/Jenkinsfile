@@ -1,0 +1,23 @@
+env.CI = 'false'
+pipeline {
+    agent any
+    stages {
+        stage('Deployment') {
+            steps {
+                // bat '%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Kill_Process.bat 3000'
+                bat '%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Kill_Process.bat 3001'
+                bat 'npm install --force'
+                bat 'npm run build --configuration=production'
+                script {
+                    def jobName = env.JOB_NAME
+                    def packageJson = readJSON file: 'package.json'
+                    def appName = packageJson.name
+                    // timeout(time: 2, unit: 'MINUTES') {
+                        // bat "\"%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Deploy_React.bat\" ${jobName} ${appName}"
+                        bat "\"%userprofile%\\Downloads\\Jenkins\\BatchFiles\\Deploy_React.bat\" ${jobName} ${appName}"
+                    // }
+                }
+            }
+        }
+    }
+}
